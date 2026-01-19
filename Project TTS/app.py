@@ -62,17 +62,17 @@ def home():
 
         clear_old_audio()
 
-        translated_text = translator.translate(text, dest=language.split("-")[0]).text
+        translated = translator.translate(text,dest=language.split("-")[0])
+        translated_text = translated.text
 
-        voice = VOICE_MAP.get(language, {}).get(gender)
-        if not voice:
-            voice = "en-US-AriaNeural"
+        voice = VOICE_MAP.get(language, {}).get(gender, "en-US-AriaNeural")
 
         asyncio.run(generate_tts(translated_text, voice, rate, pitch))
 
         return render_template("index.html",audio_file=AUDIO_FILE,time=int(time.time()))
 
     return render_template("index.html")
+
 
 
 @app.route("/download/<filename>")
