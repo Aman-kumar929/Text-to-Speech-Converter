@@ -1,0 +1,293 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+  background:#020617;
+  color:#e5e7eb;
+  overflow-x:hidden;
+}
+
+
+.bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
+    opacity:0.18;
+}
+
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(2,6,23,0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.logo span {
+    color: #ec4899;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.navbar a {
+    color: #f9fafb;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    color: #ec4899;
+}
+
+
+.hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 65px;
+    font-weight: 600;
+}
+
+.hero h2 {
+    font-size: 45px;
+    color: #ec4899;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+
+.converter {
+    padding: 90px 20px;
+    max-width: 700px;
+    margin: auto;
+}
+
+.converter h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tts-form {
+    background: rgba(255,255,255,0.06);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #ec4899;
+    backdrop-filter: blur(12px);
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #020617;
+    color: white;
+    margin-bottom: 15px;
+    border: 0.5px solid #ec4899;
+}
+
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+select, input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #020617;
+    color: white;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ec4899, #f472b6);
+    color: #020617;
+}
+
+button:hover {
+    box-shadow: 0 10px 30px rgba(236,72,153,0.4);
+}
+
+
+.audio-box {
+    margin-top: 20px;
+    text-align: center;
+}
+
+audio {
+    width: 100%;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: rgb(95, 240, 95);
+    color: rgb(6, 6, 6);
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.download-btn:hover {
+    background: rgb(49, 235, 49);
+    border: 0.5px solid black;
+}
+
+
+.about {
+    padding: 80px 20px;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.about h3{
+    color: #ec4899;
+    font-size: 30px;
+    margin: 30px;
+}
+
+.about ul {
+    margin-top: 15px;
+    list-style: none;
+}
+
+.about li {
+    margin: 8px 0;
+}
+
+
+footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+
+/* ===============================Mobile Responsive================================= */
+
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 20px;
+    }
+
+    .navbar ul {
+        gap: 15px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+    }
+
+    .hero {
+        height: 70vh;
+        padding: 0 20px;
+    }
+
+    .hero h1 {
+        font-size: 50px;
+    }
+
+    .hero h2 {
+        font-size: 35px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .converter {
+        padding: 40px 15px 70px 15px;
+    }
+
+    .tts-form {
+        padding: 22px;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    textarea {
+        height: 110px;
+        font-size: 14px;
+    }
+
+    select, input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+
+    .about {
+        padding: 110px 20px;
+    }
+
+    .about h3 {
+        font-size: 22px;
+    }
+
+    .about p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <video class="bg-video" autoplay muted loop>
+        <source src="{{ url_for('static', filename='video/background.mp4') }}" type="video/mp4">
+    </video>
+
+    <nav class="navbar">
+        <div class="logo">TTS<span>Converter</span></div>
+        <ul>
+            <li><a href="#converter">Converter</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+
+        <div class="hero-content">
+            <h1>Text to Speech</h1>
+            <h2>Converter</h2>
+            <p>Professional AI voice generator with multiple languages</p>
+        </div>
+    </section>
+
+    <section id="converter" class="converter">
+        <h3>Convert Your Text</h3>
+
+        <form method="POST" class="tts-form">
+
+            <textarea name="text" placeholder="Enter your text here..." required></textarea>
+
+            <div class="row">
+                <select name="gender">
+                    <option value="female">Female Voice</option>
+                    <option value="male">Male Voice</option>
+                </select>
+
+                <select name="language">
+                    <option value="en-US">English</option>
+                    <option value="hi-IN">Hindi</option>
+                    <option value="fr-FR">French</option>
+                    <option value="de-DE">German</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <input name="pitch" placeholder="+0Hz (Pitch)">
+                <input name="rate" placeholder="+0% (Speed)">
+            </div>
+
+            <button type="submit">Convert to Speech</button>
+        </form>
+
+        {% if audio_file %}
+        <div class="audio-box">
+            <audio controls>
+                <source src="{{ url_for('static', filename='audio/' + audio_file) }}?v={{ time }}">
+            </audio>
+
+            <a class="download-btn" href="{{ url_for('download', filename=audio_file) }}">
+                 Download Audio
+            </a>
+        </div>
+        {% endif %}
+    </section>
+
+    <section id="about" class="about">
+        <h3>About This Tool</h3>
+        <p>
+            This Text to Speech Converter allows you to convert written text into
+            natural-sounding speech using advanced AI voices.
+        </p>
+
+        <ul>
+            <li> Choose male or female voice</li>
+            <li> Multiple language support</li>
+            <li> Control pitch and speed</li>
+            <li> Download generated audio</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2026 Text to Speech Converter | Built by Aman Kumar</p>
+    </footer>
+
+</body>
+</html>
