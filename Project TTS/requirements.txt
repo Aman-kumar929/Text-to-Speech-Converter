@@ -1,4 +1,4 @@
 Flask
 gunicorn
 edge-tts
-googletrans
+deep-translator

@@ -3,14 +3,14 @@ import edge_tts
 import asyncio
 import os
 import time
-from googletrans import Translator
+from deep_translator import GoogleTranslator
+
 
 app = Flask(__name__)
 
 AUDIO_FOLDER = os.path.join(app.root_path, "static", "audio")
 os.makedirs(AUDIO_FOLDER, exist_ok=True)
 
-translator = Translator()
 AUDIO_FILE = "audio.mp3"
 
 
@@ -62,8 +62,7 @@ def home():
 
         clear_old_audio()
 
-        translated = translator.translate(text,dest=language.split("-")[0])
-        translated_text = translated.text
+        translated_text = GoogleTranslator(source="auto",target=language.split("-")[0]).translate(text)
 
         voice = VOICE_MAP.get(language, {}).get(gender, "en-US-AriaNeural")
 
@@ -72,7 +71,6 @@ def home():
         return render_template("index.html",audio_file=AUDIO_FILE,time=int(time.time()))
 
     return render_template("index.html")
-
 
 
 @app.route("/download/<filename>")
