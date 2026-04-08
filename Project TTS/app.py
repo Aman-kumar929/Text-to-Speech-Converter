@@ -53,22 +53,66 @@ async def generate_tts(text, voice, rate, pitch):
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        text = request.form["text"]
-        language = request.form["language"]
-        gender = request.form.get("gender", "female")
+        try:
+            text = request.form.get("text", "").strip()
+            language = request.form.get("language", "en-US")
+            gender = request.form.get("gender", "female")
 
-        rate = request.form.get("rate", "+0%") or "+0%"
-        pitch = request.form.get("pitch", "+0Hz") or "+0Hz"
+            # ---------- SAFE INPUT HANDLING ----------
+            rate_input = request.form.get("rate", "").strip()
+            pitch_input = request.form.get("pitch", "").strip()
 
-        clear_old_audio()
+            # Default values if empty
+            if rate_input == "":
+                rate_input = "0"
+            if pitch_input == "":
+                pitch_input = "0"
 
-        translated_text = GoogleTranslator(source="auto",target=language.split("-")[0]).translate(text)
+            # Convert safely (NO + sign because some TTS reject it)
+            # Convert safely with + or -
+            try:
+                rate = f"{int(rate_input):+d}%"
+            except:
+                rate = "+0%"
 
-        voice = VOICE_MAP.get(language, {}).get(gender, "en-US-AriaNeural")
+            try:
+                pitch = f"{int(pitch_input):+d}Hz"
+            except:
+                pitch = "+0Hz"
 
-        asyncio.run(generate_tts(translated_text, voice, rate, pitch))
+            print("Rate:", rate)
+            print("Pitch:", pitch)
 
-        return render_template("index.html",audio_file=AUDIO_FILE,time=int(time.time()))
+            # ---------- MAIN LOGIC ----------
+            clear_old_audio()
+
+            translated_text = GoogleTranslator(
+                source="auto",
+                target=language.split("-")[0]
+            ).translate(text)
+
+            voice = VOICE_MAP.get(language, {}).get(gender, "en-US-AriaNeural")
+
+            # ---------- SAFE ASYNC FIX ----------
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            loop.run_until_complete(
+                generate_tts(translated_text, voice, rate, pitch)
+            )
+            loop.close()
+
+            return render_template(
+                "index.html",
+                audio_file=AUDIO_FILE,
+                time=int(time.time())
+            )
+
+        except Exception as e:
+            print("FULL ERROR:", e)
+            return render_template(
+                "index.html",
+                error=str(e)
+            )
 
     return render_template("index.html")
 
